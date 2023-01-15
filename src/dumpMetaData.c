@@ -3,6 +3,7 @@
 
 int main(int argc, char**argv)
 {
+    //gcc dumpMetaData.c -I../include/ -L../lib -lavutil -lavformat
 	av_log_set_level(AV_LOG_DEBUG);
 	if(argc< 2){
 		av_log(NULL,AV_LOG_ERROR, "Usage: %s inputfileName.", argv[0]);
@@ -11,7 +12,7 @@ int main(int argc, char**argv)
 	const char *inputfileName = argv[1];
 	
 	AVFormatContext *pFormatCtx = NULL;
-	int ret = avformat_open_input(&pFormatCtx, inputfileName, NULL, AVDictionary * * options);
+	int ret = avformat_open_input(&pFormatCtx, inputfileName, NULL, NULL);
 	if(ret != 0){
 		av_log(NULL,AV_LOG_ERROR,"open input file:%s failed %s\n",inputfileName, av_err2str(ret));
 	}
