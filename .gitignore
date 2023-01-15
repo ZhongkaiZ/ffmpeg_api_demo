@@ -1,6 +1,9 @@
 # Prerequisites
 *.d
 
+cache/*
+ffmpeg_api_demo.*
+
 # Object files
 *.o
 *.ko
