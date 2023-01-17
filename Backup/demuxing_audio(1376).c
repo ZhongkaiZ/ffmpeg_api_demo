@@ -3,7 +3,7 @@
 
 int main(int argc, char**argv)
 {
-    //gcc demuxing_audio.c -I../include/ -L../lib -lavutil -lavformat
+    //gcc dumpMetaData.c -I../include/ -L../lib -lavutil -lavformat
 	av_log_set_level(AV_LOG_DEBUG);
 	if(argc< 3){
 		av_log(NULL,AV_LOG_ERROR, "Usage: %s infile outfile\n.", argv[0]);
@@ -37,7 +37,7 @@ int main(int argc, char**argv)
 
 	// not ponit index
 	AVPacket packet;
-	av_init_packet(&packet);
+	av_init_packet(&pakcet);
 
 	// out file index
 	FILE *dest_fp = fopen(outfileName, "wb");
@@ -53,7 +53,7 @@ int main(int argc, char**argv)
 			if (ret !=0){
 				av_log(NULL,AV_LOG_ERROR,"write file failed!\n");
 				fclose(dest_fp);
-				avformat_close_input(&inputFoarmatCtx);
+				avformat_close_input(&inputFoarmatCtx)
 			}
 		}
 		// free packet
