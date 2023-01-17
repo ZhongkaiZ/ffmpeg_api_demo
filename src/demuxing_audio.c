@@ -50,7 +50,7 @@ int main(int argc, char**argv)
 	while(av_read_frame(inputFoarmatCtx, &packet)==0){
 		if(packet.stream_index == audioIndex){
 			ret = fwrite(packet.data, 1, packet.size, dest_fp);
-			if (ret !=0){
+			if (ret != packet.size){
 				av_log(NULL,AV_LOG_ERROR,"write file failed!\n");
 				fclose(dest_fp);
 				avformat_close_input(&inputFoarmatCtx);
