@@ -106,9 +106,9 @@ int main(int argc, char**argv)
 	while(av_read_frame(inputFoarmatCtx, &packet)==0){
 		if(packet.stream_index == audioIndex){
 			char adtsHeader[7] = {0};
-			getADTSHeader(adtsHeader, packet.size, inFormatCtx->streams[audioIndex]->codecpar->profile,   //写入adts头
-				inFormatCtx->streams[audioIndex]->codecpar->sample_rate, 
-				inFormatCtx->streams[audioIndex]->codecpar->channels);
+			getADTSHeader(adtsHeader, packet.size, inputFoarmatCtx->streams[audioIndex]->codecpar->profile,   //写入adts头
+				inputFoarmatCtx->streams[audioIndex]->codecpar->sample_rate, 
+				inputFoarmatCtx->streams[audioIndex]->codecpar->channels);
 			ret = fwrite(adtsHeader, 1, sizeof(adtsHeader), dest_fp);
 			if(ret != sizeof(adtsHeader))
 			{
