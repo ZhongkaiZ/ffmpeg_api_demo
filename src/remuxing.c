@@ -48,7 +48,7 @@ int main(int argc, char **argv)
 	//流总数
 	int streamCount = inFmtCtx->nb_streams;
 
-	int  handleStreamArray = av_mallocz_array(streamCount, sizeof(int));
+	int* handleStreamArray = av_mallocz_array(streamCount, sizeof(int));
 	if(handleStreamArray == NULL)
 	{
 		av_log(NULL, AV_LOG_ERROR, "malloc stream array failed.\n");
@@ -58,7 +58,7 @@ int main(int argc, char **argv)
 
 	int streamIndex = 0;
 	//创建输出流并拷贝编码器参数
-	for(int i =0; i< inFmtCtx.nb_streams; i++){
+	for(int i =0; i< inFmtCtx->nb_streams; i++){
 		AVStream *inStream = inFmtCtx->streams[i];
 		//仅处理视频音频字幕
 		if(	inStream->codecpar->codec_type != AVMEDIA_TYPE_VIDEO &&
@@ -103,7 +103,7 @@ int main(int argc, char **argv)
 		}
 	}
 	//三部曲， writer_header, interleaved_write_frame,      write_trailer
-	avformat_write_header(outFmtCtx, NULL);
+	ret = avformat_write_header(outFmtCtx, NULL);
 	if(ret < 0)
 	{
 		av_log(NULL, AV_LOG_ERROR, "writer header failed: %s\n", av_err2str(ret));
