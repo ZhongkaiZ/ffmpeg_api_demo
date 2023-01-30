@@ -33,7 +33,7 @@ int main(int argc, char **argv)
 		goto fail;
 	}
 	//打印metaData
-	av_dump_format(inFmtCtx, 0 ,inFileName, 0);
+	av_dump_format(inFmtCtx, 0 ,inFileName, 0)
 
 	AVFormatContext *outFmtCtx = NULL;
 	//创建输出文件的format上下文
@@ -48,7 +48,7 @@ int main(int argc, char **argv)
 	//流总数
 	int streamCount = inFmtCtx->nb_streams;
 
-	int  handleStreamArray = av_mallocz_array(streamCount, sizeof(int));
+	int  handleStreamArrary = av_mallocz_array(streamCount, sizeof(int));
 	if(handleStreamArray == NULL)
 	{
 		av_log(NULL, AV_LOG_ERROR, "malloc stream array failed.\n");
@@ -69,7 +69,7 @@ int main(int argc, char **argv)
 			continue;
 		}
 		// 输出文件中流重新计数
-		handleStreamArray[i] = streamIndex++;
+		handleStreamArrary[i] = streamIndex++;
 		
 		//此任务仅转封装，所以不需要指定codec, 指定了上下文。
 		AVStream * outStream = avformat_new_stream(outFmtCtx, NULL);
@@ -130,7 +130,7 @@ int main(int argc, char **argv)
 			continue;
 		}
 		AVStream *inStream = inFmtCtx->streams[packet.stream_index];
-		packet.stream_index = handleStreamArray[packet.stream_index];
+		packet.stream_index = handleStreamArrary[packet.stream_index];
 		AVStream *outStream = outFmtCtx->streams[packet.stream_index];
 
 		//转time_base, 不同封装格式的流有不同的time_base.
