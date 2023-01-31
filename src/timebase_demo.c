@@ -41,6 +41,17 @@ int main(int argc, char ** argv)
 			av_log(NULL,AV_LOG_INFO,"audio time base: num = %d, den = %d\n",audioTimeBase.num,audioTimeBase.den);
 		}
 	}
-	
+
+
+	AVPacket packet;
+	av_init_packet(&packet);
+
+	while(av_read_frame(inFmtCtx, &packet)==0){
+		AVStream * inStream = inFmtCtx->streams[packet.stream_index];
+		av_log(NULL,AV_LOG_INFO,"streamIndex = %d, pts=%d, pts_time = %lf dts=%d, dts_time = %lf\n",\
+			packet.stream_index,\
+			packet.pts, packet.pts*av_q2d(inStream->time_base),\
+			packet.dts, packet.dts*av_q2d(inStream->time_base));
+	}
 	return 0;
 }
